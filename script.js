@@ -16,6 +16,11 @@ for (i = 0; i <20; i++) {
     panel.appendChild(button);
 }
 
+let numberA;
+let operator;
+let numberB;
+
+
 
 
 
@@ -24,10 +29,12 @@ function addToDisplay() {
     textDisplay.textContent = `${this.className.slice(7,8)}`;
 }
 
-function add(a,b) {return +a + +b}
-function subtract(a,b) {return +a - +b}
-function multiply(a,b) {return +a * +b}
-function divide(a,b) {return +a / +b}
+const arithmeticOperators = {   '+': add = (a,b) => {return +a + +b},
+                                '-': subtract = (a,b) => {return +a - +b},
+                                '*': multiply = (a,b) => {return +a * +b},
+                                '/': divide = (a,b) => {return +a / +b},
+}
+
 
 
 
