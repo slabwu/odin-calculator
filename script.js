@@ -16,11 +16,24 @@ for (i = 0; i <20; i++) {
     panel.appendChild(button);
 }
 
+
+
+
+
+function addToDisplay() {
+    textDisplay.textContent = `${this.className.slice(7,8)}`;
+}
+
+function add(a,b) {return +a + +b}
+function subtract(a,b) {return +a - +b}
+function multiply(a,b) {return +a * +b}
+function divide(a,b) {return +a / +b}
+
+
+
+
+
 let numbers = [...document.querySelectorAll('.number')];
 let operators = [...document.querySelectorAll('.operator')];
 
-numbers.forEach(number => number.addEventListener('click', addNumber))
-
-function addNumber() {
-    textDisplay.textContent = `${this.className.slice(7,8)}`;
-}
+numbers.forEach(number => number.addEventListener('click', addToDisplay))
