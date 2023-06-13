@@ -5,8 +5,14 @@ const BUTTONTEXT = ['C', '+/-', '%', '/', '7', '8', '9', 'x', '4', '5',
 
 for (i = 0; i <20; i++) {
     let button = document.createElement('div')
-    button.classList.add("button");
-    button.textContent = BUTTONTEXT[i];
+    let text = BUTTONTEXT[i];
+
+    button.classList.add('button');
+    button.classList.add(text);
+    if (/\d/.test(text)) button.classList.add('number');
+    if (/[%\/x\-\+=]/.test(text)) button.classList.add('operator');
+
+    button.textContent = text;
     //div.addEventListener('mouseover', ...);
     panel.appendChild(button);
 }
