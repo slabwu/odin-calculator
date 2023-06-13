@@ -9,7 +9,7 @@ body {
 
 .calculator {
     background-color: black;
-    height: 600px;
+    height: 700px;
     width: 500px;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,20 @@ body {
 
 .calculator .panel {
     background-color: yellow;
-    height: 450px;
+    height: 550px;
     width: 450px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.button {
+    height: 80px;
+    width: 80px;
+    background-color: pink;
+    z-index: 3;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
