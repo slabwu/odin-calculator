@@ -21,9 +21,9 @@ for (i = 0; i <20; i++) {
 let numbers = [...document.querySelectorAll('.number')];
 let operators = [...document.querySelectorAll('.operator')];
 
-let numberA = 9;
-let operator = '+';
-let numberB = 9;
+let numberA;
+let operator;
+let numberB;
 
 
 
@@ -46,6 +46,11 @@ function selectNumber() {
     currentNumber = this.className.slice(7,8);
     textDisplay.textContent = currentNumber;
     (!operator) ? numberA = currentNumber: numberB = currentNumber;
+
+    document.querySelector('.numberA').textContent=`numberA: ${numberA}`;
+    document.querySelector('.operator1').textContent=`operator: ${operator}`;
+    document.querySelector('.numberB').textContent=`numberB: ${numberB}`;
+    document.querySelector('.currentNumber').textContent=`currentNumber: ${currentNumber}`;
 }
 
 function selectOperation() {
