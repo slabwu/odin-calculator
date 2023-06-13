@@ -29,12 +29,15 @@ function addToDisplay() {
     textDisplay.textContent = `${this.className.slice(7,8)}`;
 }
 
-const arithmeticOperators = {   '+': add = (a,b) => {return +a + +b},
-                                '-': subtract = (a,b) => {return +a - +b},
-                                '*': multiply = (a,b) => {return +a * +b},
-                                '/': divide = (a,b) => {return +a / +b},
+const arithmetic = {   '+': add = (a,b) => {return +a + +b},
+                        '-': subtract = (a,b) => {return +a - +b},
+                        '*': multiply = (a,b) => {return +a * +b},
+                        '/': divide = (a,b) => {return +a / +b},
 }
 
+function operate(a,operator,b) {
+    return arithmetic[operator](a,b);
+}
 
 
 
