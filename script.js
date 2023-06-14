@@ -92,6 +92,15 @@ document.querySelector('.clear').addEventListener('click', () => {
     updateDisplay();
 })
 
+document.querySelector('.decimal').addEventListener('click', () => {
+    if (!values[1]) {
+        if (!values[0].includes('.')) values[0] += `.`;
+    } else {
+        if (!values[2].includes('.')) values[2] += `.`;
+    }
+    updateDisplay();
+})
+
 document.querySelector('.changeSign').addEventListener('click', () => {
     if (!values[1]) {
         (values[0]>0)?  values[0] = `${-Math.abs(values[0])}`:
