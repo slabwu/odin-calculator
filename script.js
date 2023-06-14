@@ -1,8 +1,8 @@
 const textDisplay = document.querySelector('.text-display');
 const panel = document.querySelector('.panel');
-const BUTTONTEXT = ['clear', 'changeSign', '%', '÷', '7', '8', '9', '×', '4', '5', 
+const BUTTONTEXT = ['clear', 'changeSign', '%', '/', '7', '8', '9', '*', '4', '5', 
                     '6', '-', '1', '2', '3', '+', '0', 'decimal', 'delete', 'equal'];
-const REPLACETEXT = {clear: 'C', changeSign: '+/-', decimal: '.', delete: '⌫', equal: '='};                    
+const REPLACETEXT = {clear: 'C', changeSign: '+/-', decimal: '.', delete: '⌫', equal: '=', '*': '×', '/': '÷'};                    
 
 for (i = 0; i <20; i++) {
     let button = document.createElement('div')
@@ -11,7 +11,8 @@ for (i = 0; i <20; i++) {
     button.classList.add('button');
     button.classList.add(text);
     if (/\d/.test(text)) button.classList.add('number');
-    if (/[%÷×\-\+]/.test(text)) button.classList.add('operator');
+    if (/[%/*\-\+]/.test(text)) button.classList.add('operator');
+    if (/\b(?:clear|changeSign|decimal|delete)\b/.test(text)) button.classList.add('misc');
     if (REPLACETEXT[text]) text = REPLACETEXT[text];
     
 
@@ -32,15 +33,21 @@ let finishedCalculation = false;
 
 const arithmetic = {   '+': add = (a,b) => +a + +b,
                         '-': subtract = (a,b) => +a - +b,
-                        '×': multiply = (a,b) => +a * +b,
-                        '÷': divide = (a,b) => (!(b == '0'))? `${+a / +b}` : 'LOL',
+                        '*': multiply = (a,b) => +a * +b,
+                        '/': divide = (a,b) => (!(b === '0'))? +a / +b : 'LOL',
                         '%': modulus = (a,b) => +a % +b,
 }
 
 function operate(a,operator,b) {
+    if (isNaN(a) || isNaN(b)) {
+        textDisplay.textContent = 'NaN';
+        values = ['', '', '']
+    } else {
     let calculatedValue = arithmetic[operator](a,b);
 
-    if (countDecimals(calculatedValue)>2) calculatedValue = Math.round((calculatedValue) * 100) / 100;
+    if (!isNaN(calculatedValue) && countDecimals(calculatedValue)>2) {
+        calculatedValue = Math.round((calculatedValue) * 100) / 100;
+    }
 
     textDisplay.textContent = calculatedValue;
     values[0] = `${calculatedValue}`;
@@ -49,6 +56,7 @@ function operate(a,operator,b) {
     finishedCalculation = true;
 
     updateDisplay()
+}
 }
 
 function selectNumber() {

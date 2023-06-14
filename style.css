@@ -11,8 +11,8 @@ body {
 
 .calculator {
     background-color: black;
-    height: 700px;
-    width: 500px;
+    height: 620px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -21,22 +21,24 @@ body {
 }
 
 .calculator .display {
-    background-color: rgb(97, 97, 227);
-    height: 100px;
-    width: 450px;
+    background-color: #1D4E89;
+    height: 120px;
+    width: 370px;
     border-radius: 25px;
 }
 
 .calculator .text-display {
-    font-size: 90px;
+    font-size: 50px;
+    color: #00B2CA;
     text-align: right;
     padding: 0 20px;
+    font-family: 'Digital-7', 'Courier New', 'Montserrat', sans-serif;
 }
 
 .calculator .panel {
-    background-color: rgb(201, 201, 201);
-    height: 550px;
-    width: 450px;
+    background-color: black;
+    height: 450px;
+    width: 370px;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
@@ -44,18 +46,40 @@ body {
 }
 
 .button {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     background-color: black;
     color: white;
     font-size: 5vh;
-    margin: 5px;
+    margin-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 25px;
+    border-radius: 100px;
 }
 
 .button:hover {
-    background-color: grey;
+    background-color: #80ffdb;
+    cursor: pointer;
+}
+
+.number {
+    background-color: #00B2CA;
+}
+
+.operator {
+    background-color: #64dfdf;
+}
+
+.misc {
+    background-color: #0F80AA;
+}
+
+.equal {
+    background-color: #64dfdf;
+}
+
+@font-face {
+    font-family: 'Digital-7';
+    src: url('fonts/Digital7-rg1mL.ttf') format('truetype');
 }
