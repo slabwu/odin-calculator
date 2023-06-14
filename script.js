@@ -68,7 +68,7 @@ function selectNumber() {
 }
 
 function selectOperation() {
-    values[1] = this.className.slice(7,8);
+    if (values[0]) values[1] = this.className.slice(7,8);
 
     textDisplay.textContent = values.join(' ');
     console.log(values)
@@ -90,9 +90,17 @@ document.querySelector('.clear').addEventListener('click', () => {
     values = ['', '', ''];
     textDisplay.textContent = ''})
 
-// document.querySelector('.+/-').addEventListener('click', () => {
-//     values = ['', '', ''];
-//     textDisplay.textContent = ''})
+document.querySelector('.changeSign').addEventListener('click', () => {
+    if (!values[1]) {
+        (values[0]>0)?  values[0] = `${-Math.abs(values[0])}`:
+                        values[0] = `${Math.abs(values[0])}`;
+    } else {
+        (values[2]>0)?  values[2] = `${-Math.abs(values[2])}`:
+                        values[2] = `${Math.abs(values[2])}`;
+    }
+
+    console.log(values)
+    textDisplay.textContent = values.join(' ');})
 
 document.querySelector('.equal').addEventListener('click', () => {
     if (values[0]&&values[1]&&values[2]) operate(values[0], values[1], values[2]);})
