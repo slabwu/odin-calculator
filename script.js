@@ -1,6 +1,6 @@
 const textDisplay = document.querySelector('.text-display');
 const panel = document.querySelector('.panel');
-const BUTTONTEXT = ['clear', 'changeSign', '%', '÷', '7', '8', '9', 'x', '4', '5', 
+const BUTTONTEXT = ['clear', 'changeSign', '%', '÷', '7', '8', '9', '×', '4', '5', 
                     '6', '-', '1', '2', '3', '+', '0', 'decimal', 'delete', 'equal'];
 const REPLACETEXT = {clear: 'C', changeSign: '+/-', decimal: '.', delete: '⌫', equal: '='};                    
 
@@ -11,7 +11,7 @@ for (i = 0; i <20; i++) {
     button.classList.add('button');
     button.classList.add(text);
     if (/\d/.test(text)) button.classList.add('number');
-    if (/[%÷x\-\+]/.test(text)) button.classList.add('operator');
+    if (/[%÷×\-\+]/.test(text)) button.classList.add('operator');
     if (REPLACETEXT[text]) text = REPLACETEXT[text];
     
 
@@ -32,7 +32,7 @@ let finishedCalculation = false;
 
 const arithmetic = {   '+': add = (a,b) => +a + +b,
                         '-': subtract = (a,b) => +a - +b,
-                        'x': multiply = (a,b) => +a * +b,
+                        '×': multiply = (a,b) => +a * +b,
                         '÷': divide = (a,b) => (!(b == '0'))? `${+a / +b}` : 'LOL',
                         '%': modulus = (a,b) => +a % +b,
 }
@@ -105,10 +105,8 @@ document.querySelector('.changeSign').addEventListener('click', () => {
 
 document.querySelector('.delete').addEventListener('click', () => {
     for (i=2; i>=0; i--) {
-        if (values[i] === '') { 
-            return;
-        } else {
-            values[i] = values[i].slice(0, values[i].length-2);
+        if (!(values[i] === '')) { 
+            values[i] = values[i].slice(0, values[i].length-1);
             break;
         }
     }
