@@ -52,6 +52,7 @@ function operate(a,operator,b) {
 
     answerDisplay.textContent = calculatedValue;
     updateDisplay()
+    textDisplay.textContent += ' =';
     values[0] = `${calculatedValue}`;
     values[1] = '';
     values[2] = '';
@@ -128,6 +129,7 @@ document.querySelector('.delete').addEventListener('click', () => {
             break;
         }
     }
+    if (!values[0]&&!values[1]&&!values[2]) answerDisplay.textContent = '';
     updateDisplay();
 })
 
