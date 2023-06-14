@@ -1,8 +1,9 @@
 const textDisplay = document.querySelector('.text-display');
 const panel = document.querySelector('.panel');
-const BUTTONTEXT = ['C', '+/-', '%', '/', '7', '8', '9', 'x', '4', '5', 
-                    '6', '-', '1', '2', '3', '+', '0', '.', 'del', '='];
-                    
+const BUTTONTEXT = ['clear', 'changeSign', '%', '÷', '7', '8', '9', 'x', '4', '5', 
+                    '6', '-', '1', '2', '3', '+', '0', 'decimal', 'delete', 'equal'];
+const REPLACETEXT = {clear: 'C', changeSign: '+/-', decimal: '.', delete: '⌫', equal: '='};                    
+
 for (i = 0; i <20; i++) {
     let button = document.createElement('div')
     let text = BUTTONTEXT[i];
@@ -10,9 +11,9 @@ for (i = 0; i <20; i++) {
     button.classList.add('button');
     button.classList.add(text);
     if (/\d/.test(text)) button.classList.add('number');
-    if (/[%\/x\-\+]/.test(text)) button.classList.add('operator');
-    if (/=/.test(text)) button.classList.add('equal');
-    //if (/[%\/x\-\+=]/.test(text)) button.classList.add('operator');
+    if (/[%÷x\-\+]/.test(text)) button.classList.add('operator');
+    if (REPLACETEXT[text]) text = REPLACETEXT[text];
+    
 
     button.textContent = text;
     panel.appendChild(button);
@@ -32,14 +33,16 @@ let finishedCalculation = false;
 const arithmetic = {   '+': add = (a,b) => +a + +b,
                         '-': subtract = (a,b) => +a - +b,
                         'x': multiply = (a,b) => +a * +b,
-                        '/': divide = (a,b) => (!(b == '0'))? `${+a / +b}` : 'LOL',
+                        '÷': divide = (a,b) => (!(b == '0'))? `${+a / +b}` : 'LOL',
                         '%': modulus = (a,b) => +a % +b,
 }
 
 function operate(a,operator,b) {
     let calculatedValue = arithmetic[operator](a,b);
-    textDisplay.textContent = calculatedValue;
 
+    if (countDecimals(calculatedValue)>2) calculatedValue = Math.round((calculatedValue) * 100) / 100;
+
+    textDisplay.textContent = calculatedValue;
     values[0] = `${calculatedValue}`;
     values[1] = '';
     values[2] = '';
@@ -71,11 +74,25 @@ function selectOperation() {
     console.log(values)
 }
 
+function countDecimals(number) {
+    if(Math.floor(number) === number) return 0;
+    return number.toString().split(".")[1].length || 0; 
+}
+
 
 
 
 
 numbers.forEach(number => number.addEventListener('click', selectNumber))
 operators.forEach(operator => operator.addEventListener('click', selectOperation))
-document.querySelector('.C').addEventListener('click', () => {textDisplay.textContent = ''})
-document.querySelector('.equal').addEventListener('click', () => {if (values[0]&&values[1]&&values[2]) operate(values[0], values[1], values[2]);})
+
+document.querySelector('.clear').addEventListener('click', () => {
+    values = ['', '', ''];
+    textDisplay.textContent = ''})
+
+// document.querySelector('.+/-').addEventListener('click', () => {
+//     values = ['', '', ''];
+//     textDisplay.textContent = ''})
+
+document.querySelector('.equal').addEventListener('click', () => {
+    if (values[0]&&values[1]&&values[2]) operate(values[0], values[1], values[2]);})
