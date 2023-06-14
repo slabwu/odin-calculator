@@ -2,7 +2,7 @@ const textDisplay = document.querySelector('.text-display');
 const panel = document.querySelector('.panel');
 const BUTTONTEXT = ['C', '+/-', '%', '/', '7', '8', '9', 'x', '4', '5', 
                     '6', '-', '1', '2', '3', '+', '0', '.', 'del', '='];
-
+                    
 for (i = 0; i <20; i++) {
     let button = document.createElement('div')
     let text = BUTTONTEXT[i];
@@ -21,9 +21,8 @@ for (i = 0; i <20; i++) {
 let numbers = [...document.querySelectorAll('.number')];
 let operators = [...document.querySelectorAll('.operator')];
 
-let numberA;
 let operator;
-let numberB;
+let values = ['', '', ''];
 
 
 
@@ -37,24 +36,28 @@ const arithmetic = {   '+': add = (a,b) => {return +a + +b},
 }
 
 function operate(a,operator,b) {
-    let value = arithmetic[operator](a,b);
-    textDisplay.textContent = value;
-    return value;
+    let calculatedValue = arithmetic[operator](a,b);
+    textDisplay.textContent = calculatedValue;
+
+    values[0] = calculatedValue;
+    values[1] = '';
+    values[2] = '';
+
+    return calculatedValue;
 }
 
 function selectNumber() {
-    currentNumber = this.className.slice(7,8);
-    textDisplay.textContent = currentNumber;
-    (!operator) ? numberA = currentNumber: numberB = currentNumber;
+    (!values[1]) ? values[0] += this.className.slice(7,8): values[2] += this.className.slice(7,8);
+    textDisplay.textContent = values.join(' ');
 
-    document.querySelector('.numberA').textContent=`numberA: ${numberA}`;
-    document.querySelector('.operator1').textContent=`operator: ${operator}`;
-    document.querySelector('.numberB').textContent=`numberB: ${numberB}`;
-    document.querySelector('.currentNumber').textContent=`currentNumber: ${currentNumber}`;
+    console.log(values)
 }
 
 function selectOperation() {
-    operator = this.className.slice(7,8)
+    values[1] = this.className.slice(7,8);
+
+    textDisplay.textContent = values.join(' ');
+    console.log(values)
 }
 
 
@@ -64,4 +67,4 @@ function selectOperation() {
 numbers.forEach(number => number.addEventListener('click', selectNumber))
 operators.forEach(operator => operator.addEventListener('click', selectOperation))
 document.querySelector('.C').addEventListener('click', () => {textDisplay.textContent = ''})
-document.querySelector('.equal').addEventListener('click', () => {operate(numberA, operator, numberB)})
+document.querySelector('.equal').addEventListener('click', () => {if (values[0]&&values[1]&&values[2]) operate(values[0], values[1], values[2]);})
