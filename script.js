@@ -1,4 +1,5 @@
 const textDisplay = document.querySelector('.text-display');
+const answerDisplay = document.querySelector('.answer-display');
 const panel = document.querySelector('.panel');
 const BUTTONTEXT = ['clear', 'changeSign', '%', '/', '7', '8', '9', '*', '4', '5', 
                     '6', '-', '1', '2', '3', '+', '0', 'decimal', 'delete', 'equal'];
@@ -49,13 +50,12 @@ function operate(a,operator,b) {
         calculatedValue = Math.round((calculatedValue) * 100000) / 100000;
     }
 
-    textDisplay.textContent = calculatedValue;
+    answerDisplay.textContent = calculatedValue;
+    updateDisplay()
     values[0] = `${calculatedValue}`;
     values[1] = '';
     values[2] = '';
     finishedCalculation = true;
-
-    updateDisplay()
 }
 }
 
@@ -97,6 +97,7 @@ operators.forEach(operator => operator.addEventListener('click', selectOperation
 
 document.querySelector('.clear').addEventListener('click', () => {
     values = ['', '', ''];
+    answerDisplay.textContent = '';
     updateDisplay();
 })
 
