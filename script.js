@@ -46,7 +46,7 @@ function operate(a,operator,b) {
     let calculatedValue = arithmetic[operator](a,b);
 
     if (!isNaN(calculatedValue) && countDecimals(calculatedValue)>2) {
-        calculatedValue = Math.round((calculatedValue) * 100) / 100;
+        calculatedValue = Math.round((calculatedValue) * 100000) / 100000;
     }
 
     textDisplay.textContent = calculatedValue;
