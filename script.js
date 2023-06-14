@@ -65,10 +65,10 @@ function selectNumber() {
             values[0] = this.className.slice(7,8);
             finishedCalculation = false;
         } else {
-            values[0] += this.className.slice(7,8);
+            if ((values[0].length)<11) values[0] += this.className.slice(7,8);
         }
      } else {
-        values[2] += this.className.slice(7,8);
+        if ((values[2].length)<11) values[2] += this.className.slice(7,8);
      }
      updateDisplay();
 }
