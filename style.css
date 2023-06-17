@@ -76,6 +76,7 @@ body {
     align-items: center;
     border-radius: 100px;
     box-shadow: 0 0 10px #1663a3 inset;
+    user-select: none;
     transition: transform 0.3s, background-color 0.3s;
 }
 
@@ -83,6 +84,11 @@ body {
     background-color: #9efee3;
     cursor: pointer;
     transform: scale(1.15);
+}
+
+.button:active {
+    background-color: #ffffff;
+    transform: scale(0.95);
 }
 
 .number {

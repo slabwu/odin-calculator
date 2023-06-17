@@ -75,7 +75,14 @@ function selectNumber() {
 }
 
 function selectOperation() {
-    if (values[0]) values[1] = this.className.slice(7,8);
+    if (values[0]) { 
+        if (values[2]) {
+            operate(values[0], values[1], values[2]);
+            values[1] = this.className.slice(7,8);
+        } else {
+            values[1] = this.className.slice(7,8);
+        }
+    }
     updateDisplay();
 }
 
