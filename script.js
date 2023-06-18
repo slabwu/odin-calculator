@@ -180,10 +180,8 @@ document.addEventListener('keydown', (e) => {
             currentButton = document.querySelector('.delete');
             break;
         case '=':
+        case 'Enter':
             currentButton = document.querySelector('.equal');
-            break;
-        case '=':
-            currentButton = document.querySelector('.changeSign');
             break;
     }
     if (!(currentButton === null)) {
