@@ -153,8 +153,18 @@ document.querySelector('.changeSign').addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     if (/\d/.test(e.key)) selectNumber(e.key);
     if (/[%/*\-\+]/.test(e.key)) selectOperation(e.key);
-    if (e.key === '=') operateEqual();
-    if (e.key === 'c') clear();
-    if (e.key === '.') addDecimalPoint();
-    if (e.key === 'Backspace') deleteDisplay();
+    switch (e.key) {
+        case '=':
+            operateEqual();
+            break;
+        case 'c':
+            clear();
+            break;
+        case '.':
+            addDecimalPoint();
+            break;
+        case 'Backspace':
+            deleteDisplay();
+            break;
+    }
 })
