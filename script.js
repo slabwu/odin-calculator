@@ -127,6 +127,17 @@ function operateEqual() {
     if (values[0]&&values[1]&&values[2]) operate(values[0], values[1], values[2]);
 }
 
+function changeSign() {
+    if (!values[1]) {
+        (values[0]>0)?  values[0] = `${-Math.abs(values[0])}`:
+                        values[0] = `${Math.abs(values[0])}`;
+    } else {
+        (values[2]>0)?  values[2] = `${-Math.abs(values[2])}`:
+                        values[2] = `${Math.abs(values[2])}`;
+    }
+    updateDisplay();
+}
+
 
 
 
@@ -138,17 +149,7 @@ document.querySelector('.clear').addEventListener('click', clear)
 document.querySelector('.decimal').addEventListener('click', addDecimalPoint)
 document.querySelector('.delete').addEventListener('click', deleteDisplay)
 document.querySelector('.equal').addEventListener('click', operateEqual)
-
-document.querySelector('.changeSign').addEventListener('click', () => {
-    if (!values[1]) {
-        (values[0]>0)?  values[0] = `${-Math.abs(values[0])}`:
-                        values[0] = `${Math.abs(values[0])}`;
-    } else {
-        (values[2]>0)?  values[2] = `${-Math.abs(values[2])}`:
-                        values[2] = `${Math.abs(values[2])}`;
-    }
-    updateDisplay();
-})
+document.querySelector('.changeSign').addEventListener('click', changeSign)
 
 document.addEventListener('keydown', (e) => {
     if (/\d/.test(e.key)) selectNumber(e.key);
