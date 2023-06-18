@@ -23,16 +23,18 @@ for (i = 0; i <20; i++) {
 
 let numbers = [...document.querySelectorAll('.number')];
 let operators = [...document.querySelectorAll('.operator')];
+let buttons = [...document.querySelectorAll('.button')];
 
 let operator;
 let values = ['', '', ''];
 let finishedCalculation = false;
+let sound = new Audio('button-sound.mp3')
 
 
 
 
 
-const arithmetic = {   '+': add = (a,b) => +a + +b,
+const arithmetic = {    '+': add = (a,b) => +a + +b,
                         '-': subtract = (a,b) => +a - +b,
                         '*': multiply = (a,b) => +a * +b,
                         '/': divide = (a,b) => (!(b === '0'))? +a / +b : 'LOL',
@@ -138,6 +140,11 @@ function changeSign() {
     updateDisplay();
 }
 
+function playSound() {
+    sound.currentTime = 0;
+    sound.play();
+}
+
 
 
 
@@ -145,6 +152,7 @@ function changeSign() {
 
 numbers.forEach(number => number.addEventListener('click', selectNumber))
 operators.forEach(operator => operator.addEventListener('click', selectOperation))
+buttons.forEach(button => button.addEventListener('click', playSound))
 document.querySelector('.clear').addEventListener('click', clear)
 document.querySelector('.decimal').addEventListener('click', addDecimalPoint)
 document.querySelector('.delete').addEventListener('click', deleteDisplay)
@@ -152,6 +160,7 @@ document.querySelector('.equal').addEventListener('click', operateEqual)
 document.querySelector('.changeSign').addEventListener('click', changeSign)
 
 document.addEventListener('keydown', (e) => {
+    playSound();
     if (/\d/.test(e.key)) selectNumber(e.key);
     if (/[%/*\-\+]/.test(e.key)) selectOperation(e.key);
     switch (e.key) {

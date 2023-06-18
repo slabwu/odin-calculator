@@ -80,7 +80,7 @@ body {
     transition: transform 0.3s, background-color 0.3s;
 }
 
-.button:hover {
+.button:hover, .button.hover {
     background-color: #9efee3;
     cursor: pointer;
     transform: scale(1.15);
