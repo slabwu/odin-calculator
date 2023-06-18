@@ -194,6 +194,7 @@ document.addEventListener('keydown', (e) => {
     if (/[%/*\-\+]/.test(e.key)) selectOperation(e.key);
     switch (e.key) {
         case '=':
+        case 'Enter':
             operateEqual();
             break;
         case 'c':
