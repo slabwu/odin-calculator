@@ -186,7 +186,6 @@ document.addEventListener('keydown', (e) => {
             currentButton = document.querySelector('.changeSign');
             break;
     }
-    currentButton.classList.remove('pressed');
     if (!(currentButton === null)) {
         buttons.forEach(button => button.classList.remove('pressed'));
         playSound();
