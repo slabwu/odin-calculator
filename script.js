@@ -11,6 +11,7 @@ for (i = 0; i <20; i++) {
 
     button.classList.add('button');
     button.classList.add(text);
+    button.setAttribute('id', text)
     if (/\d/.test(text)) button.classList.add('number');
     if (/[%/*\-\+]/.test(text)) button.classList.add('operator');
     if (/\b(?:clear|changeSign|decimal|delete)\b/.test(text)) button.classList.add('misc');
@@ -145,6 +146,11 @@ function playSound() {
     sound.play();
 }
 
+function removeTransition(e) {
+    if(e.propertyName !== 'transform') return;
+    this.classList.remove('pressed');
+}
+
 
 
 
@@ -153,6 +159,8 @@ function playSound() {
 numbers.forEach(number => number.addEventListener('click', selectNumber))
 operators.forEach(operator => operator.addEventListener('click', selectOperation))
 buttons.forEach(button => button.addEventListener('click', playSound))
+buttons.forEach(button => button.addEventListener('transitionend', removeTransition))
+
 document.querySelector('.clear').addEventListener('click', clear)
 document.querySelector('.decimal').addEventListener('click', addDecimalPoint)
 document.querySelector('.delete').addEventListener('click', deleteDisplay)
@@ -160,7 +168,30 @@ document.querySelector('.equal').addEventListener('click', operateEqual)
 document.querySelector('.changeSign').addEventListener('click', changeSign)
 
 document.addEventListener('keydown', (e) => {
-    playSound();
+    let currentButton = document.getElementById(`${e.key}`)
+    if (currentButton === null) switch (e.key) {
+        case 'c':
+            currentButton = document.querySelector('.clear');
+            break;
+        case '.':
+            currentButton = document.querySelector('.decimal');
+            break;
+        case 'Backspace':
+            currentButton = document.querySelector('.delete');
+            break;
+        case '=':
+            currentButton = document.querySelector('.equal');
+            break;
+        case '=':
+            currentButton = document.querySelector('.changeSign');
+            break;
+    }
+    currentButton.classList.remove('pressed');
+    if (!(currentButton === null)) {
+        playSound();
+        currentButton.classList.add('pressed');
+    }
+
     if (/\d/.test(e.key)) selectNumber(e.key);
     if (/[%/*\-\+]/.test(e.key)) selectOperation(e.key);
     switch (e.key) {
