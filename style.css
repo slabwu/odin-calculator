@@ -80,7 +80,7 @@ body {
     transition: transform 0.3s, background-color 0.3s;
 }
 
-.button:hover {
+.button:hover, .button.pressed {
     background-color: #9efee3;
     cursor: pointer;
     transform: scale(1.15);
@@ -89,11 +89,6 @@ body {
 .button:active {
     background-color: rgb(233, 255, 255);
     transform: scale(0.95);
-}
-
-.button.pressed {
-    background-color: #9efee3;
-    transform: scale(1.1);
 }
 
 .number {
