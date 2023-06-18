@@ -188,6 +188,7 @@ document.addEventListener('keydown', (e) => {
     }
     currentButton.classList.remove('pressed');
     if (!(currentButton === null)) {
+        buttons.forEach(button => button.classList.remove('pressed'));
         playSound();
         currentButton.classList.add('pressed');
     }
