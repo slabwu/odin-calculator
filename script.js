@@ -60,27 +60,29 @@ function operate(a,operator,b) {
 }
 }
 
-function selectNumber() {
-     if (!values[1]) {
-        if (finishedCalculation) {
-            values[0] = this.className.slice(7,8);
+function selectNumber(number) {
+    if (typeof number === 'object') number = this.className.slice(7,8);
+    if (!values[1]) {
+    if (finishedCalculation) {
+            values[0] = number;
             finishedCalculation = false;
         } else {
-            if ((values[0].length)<11) values[0] += this.className.slice(7,8);
+            if ((values[0].length)<11) values[0] += number;
         }
-     } else {
-        if ((values[2].length)<11) values[2] += this.className.slice(7,8);
-     }
+    } else {
+        if ((values[2].length)<11) values[2] += number;
+    }
      updateDisplay();
 }
 
-function selectOperation() {
+function selectOperation(operator) {
+    if (typeof operator === 'object') operator = this.className.slice(7,8);
     if (values[0]) { 
         if (values[2]) {
             operate(values[0], values[1], values[2]);
-            values[1] = this.className.slice(7,8);
+            values[1] = operator;
         } else {
-            values[1] = this.className.slice(7,8);
+            values[1] = operator;
         }
     }
     updateDisplay();
@@ -95,6 +97,36 @@ function updateDisplay() {
     console.log(values)
     textDisplay.textContent = values.join(' ');}
 
+function clear() {
+    values = ['', '', ''];
+    answerDisplay.textContent = '';
+    updateDisplay();
+}
+
+function addDecimalPoint() {
+    if (!values[1]) {
+        if (!values[0].includes('.')) values[0] += `.`;
+    } else {
+        if (!values[2].includes('.')) values[2] += `.`;
+    }
+    updateDisplay();
+}
+
+function deleteDisplay() {
+    for (i=2; i>=0; i--) {
+        if (!(values[i] === '')) { 
+            values[i] = values[i].slice(0, values[i].length-1);
+            break;
+        }
+    }
+    if (!values[0]&&!values[1]&&!values[2]) answerDisplay.textContent = '';
+    updateDisplay();
+}
+
+function operateEqual() {
+    if (values[0]&&values[1]&&values[2]) operate(values[0], values[1], values[2]);
+}
+
 
 
 
@@ -102,21 +134,10 @@ function updateDisplay() {
 
 numbers.forEach(number => number.addEventListener('click', selectNumber))
 operators.forEach(operator => operator.addEventListener('click', selectOperation))
-
-document.querySelector('.clear').addEventListener('click', () => {
-    values = ['', '', ''];
-    answerDisplay.textContent = '';
-    updateDisplay();
-})
-
-document.querySelector('.decimal').addEventListener('click', () => {
-    if (!values[1]) {
-        if (!values[0].includes('.')) values[0] += `.`;
-    } else {
-        if (!values[2].includes('.')) values[2] += `.`;
-    }
-    updateDisplay();
-})
+document.querySelector('.clear').addEventListener('click', clear)
+document.querySelector('.decimal').addEventListener('click', addDecimalPoint)
+document.querySelector('.delete').addEventListener('click', deleteDisplay)
+document.querySelector('.equal').addEventListener('click', operateEqual)
 
 document.querySelector('.changeSign').addEventListener('click', () => {
     if (!values[1]) {
@@ -129,16 +150,11 @@ document.querySelector('.changeSign').addEventListener('click', () => {
     updateDisplay();
 })
 
-document.querySelector('.delete').addEventListener('click', () => {
-    for (i=2; i>=0; i--) {
-        if (!(values[i] === '')) { 
-            values[i] = values[i].slice(0, values[i].length-1);
-            break;
-        }
-    }
-    if (!values[0]&&!values[1]&&!values[2]) answerDisplay.textContent = '';
-    updateDisplay();
+document.addEventListener('keydown', (e) => {
+    if (/\d/.test(e.key)) selectNumber(e.key);
+    if (/[%/*\-\+]/.test(e.key)) selectOperation(e.key);
+    if (e.key === '=') operateEqual();
+    if (e.key === 'c') clear();
+    if (e.key === '.') addDecimalPoint();
+    if (e.key === 'Backspace') deleteDisplay();
 })
-
-document.querySelector('.equal').addEventListener('click', () => {
-    if (values[0]&&values[1]&&values[2]) operate(values[0], values[1], values[2]);})
